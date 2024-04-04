@@ -1,6 +1,7 @@
 package layout;
 
 import model.controllers.UserController;
+import model.exception.DomainException;
 import model.helpers.Helpers;
 
 import java.util.*;
@@ -30,7 +31,9 @@ public class Layouts {
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input data");
+            System.out.println("Dado de entrada inválido");
+        } catch (DomainException e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
 
@@ -38,7 +41,7 @@ public class Layouts {
 
     }
 
-    public static void createUser(Scanner scanner) {
+    public static void createUser(Scanner scanner) throws DomainException {
 
         List<String> questions = Helpers.fileReader(QUESTIONS);
         for (String question : questions) {

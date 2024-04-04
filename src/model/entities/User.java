@@ -4,14 +4,14 @@ public class User {
 
     private String name;
     private String email;
-    private int idade;
-    private double altura;
+    private int age;
+    private double height;
 
-    public User(String name, String email, int idade, double altura) {
+    public User(String name, String email, int age, double height) {
         this.name = name;
         this.email = email;
-        this.idade = idade;
-        this.altura = altura;
+        this.age = age;
+        this.height = height;
     }
 
     public String getName() {
@@ -30,27 +30,27 @@ public class User {
         this.email = email;
     }
 
-    public int getIdade() {
-        return idade;
+    public int getAge() {
+        return age;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public double getAltura() {
-        return altura;
+    public double getHeight() {
+        return height;
     }
 
-    public void setAltura(double altura) {
-        this.altura = altura;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     @Override
     public String toString() {
         return name + '\'' +
                 email + '\'' +
-                idade + '\'' +
-                altura;
+                age + '\'' +
+                height;
     }
 }
