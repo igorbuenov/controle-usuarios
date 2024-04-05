@@ -2,7 +2,7 @@ package layout;
 
 import model.controllers.UserController;
 import model.exception.DomainException;
-import model.helpers.Helpers;
+import model.helpers.FilesMethods;
 
 import java.util.*;
 
@@ -43,7 +43,7 @@ public class Layouts {
 
     public static void createUser(Scanner scanner) throws DomainException {
 
-        List<String> questions = Helpers.fileReader(QUESTIONS);
+        List<String> questions = FilesMethods.fileReader(QUESTIONS);
         for (String question : questions) {
             System.out.println(question);
         }

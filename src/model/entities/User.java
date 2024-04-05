@@ -48,9 +48,9 @@ public class User {
 
     @Override
     public String toString() {
-        return name + '\'' +
-                email + '\'' +
-                age + '\'' +
+        return name + "\n" +
+                email + "\n" +
+                age + "\n" +
                 height;
     }
 }
