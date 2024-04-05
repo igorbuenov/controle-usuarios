@@ -1,6 +1,7 @@
 package layout;
 
-import model.controllers.UserController;
+import model.controllers.QuestionsController;
+import model.controllers.UsersController;
 import model.exception.DomainException;
 import model.helpers.FilesHelpers;
 
@@ -35,6 +36,10 @@ public class Layouts {
                 readUser();
             }
 
+            if (choice == 3) {
+                createQuestion(scan);
+            }
+
 
         } catch (InputMismatchException e) {
             System.out.println("Dado de entrada inválido");
@@ -42,17 +47,12 @@ public class Layouts {
             System.out.println("Error: " + e.getMessage());
         }
 
-
-
-
     }
 
     public static void createUser(Scanner scanner) throws DomainException {
 
         List<String> questions = FilesHelpers.fileReader(QUESTIONS);
-        for (String question : questions) {
-            System.out.println(question);
-        }
+        QuestionsController.read(questions);
         System.out.println();
 
         List<String> answers = new ArrayList<>();
@@ -61,12 +61,21 @@ public class Layouts {
         }
         System.out.println();
 
-        UserController.create(answers);
+        UsersController.create(answers);
     }
 
-    public  static void readUser() throws FileNotFoundException {
+    public static void readUser() throws FileNotFoundException {
         System.out.println("..:: USUÁRIOS CADASTRADOS ::..");
-        UserController.read();
+        UsersController.read();
+    }
+
+    public static void createQuestion(Scanner scanner) {
+
+        System.out.println("Digite a pergunta para ser salva no formulário: ");
+        String question = scanner.nextLine();
+
+        QuestionsController.create(question);
+
     }
 
 

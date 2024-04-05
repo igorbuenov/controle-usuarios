@@ -9,7 +9,7 @@ import java.util.List;
 
 import static model.helpers.FilesHelpers.countFiles;
 
-public class UserController {
+public class UsersController {
 
     private static final String DATABASE = "C:\\ws-intellij\\cadastro-usuarios\\src\\model\\database\\";
 
