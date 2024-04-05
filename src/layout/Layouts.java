@@ -2,8 +2,9 @@ package layout;
 
 import model.controllers.UserController;
 import model.exception.DomainException;
-import model.helpers.FilesMethods;
+import model.helpers.FilesHelpers;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Layouts {
@@ -30,9 +31,14 @@ public class Layouts {
                 createUser(scan);
             }
 
+            if (choice == 2) {
+                readUser();
+            }
+
+
         } catch (InputMismatchException e) {
             System.out.println("Dado de entrada inválido");
-        } catch (DomainException e) {
+        } catch (DomainException | FileNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
         }
 
@@ -43,7 +49,7 @@ public class Layouts {
 
     public static void createUser(Scanner scanner) throws DomainException {
 
-        List<String> questions = FilesMethods.fileReader(QUESTIONS);
+        List<String> questions = FilesHelpers.fileReader(QUESTIONS);
         for (String question : questions) {
             System.out.println(question);
         }
@@ -56,6 +62,11 @@ public class Layouts {
         System.out.println();
 
         UserController.create(answers);
+    }
+
+    public  static void readUser() throws FileNotFoundException {
+        System.out.println("..:: USUÁRIOS CADASTRADOS ::..");
+        UserController.read();
     }
 
 
