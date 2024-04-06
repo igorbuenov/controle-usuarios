@@ -44,6 +44,10 @@ public class Layouts {
                 deleteQuestion(scan);
             }
 
+            if (choice == 5) {
+                showUser(scan);
+            }
+
         } catch (InputMismatchException e) {
             System.out.println("Dado de entrada inválido");
         } catch (DomainException | FileNotFoundException e) {
@@ -70,6 +74,17 @@ public class Layouts {
     public static void readUser() throws FileNotFoundException {
         System.out.println("..:: USUÁRIOS CADASTRADOS ::..");
         UsersController.read();
+    }
+
+    public static void showUser(Scanner scanner) {
+
+        System.out.print("Digite o dado a ser pesquisado: ");
+        String data = scanner.nextLine();
+        System.out.println();
+
+        System.out.println("..:: USUÁRIOS ENCONTRADOS ::..");
+        System.out.println();
+        UsersController.show(data);
     }
 
     public static void createQuestion(Scanner scanner) {

@@ -2,6 +2,7 @@ package model.controllers;
 
 import model.entities.User;
 import model.exception.DomainException;
+import model.helpers.FilesHelpers;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -76,6 +77,52 @@ public class UsersController {
             } else {
                 System.out.println((i+1) + " - " + userNames.get(i));
             }
+        }
+
+    }
+
+    public static void show(String asLike) {
+
+        File folder = new File(DATABASE);
+        File[] files = folder.listFiles(File::isFile);
+        List<File> usersFileFound = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+
+        for (File file : files) {
+            try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+                String line = bufferedReader.readLine().toLowerCase();
+                while (line != null) {
+                    if (line.contains(asLike.toLowerCase())) {
+                        usersFileFound.add(file);
+                        break;
+                    }
+                    line = bufferedReader.readLine();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        for (File userFound : usersFileFound ) {
+
+            List<String> atributes = new ArrayList<>();
+            try(BufferedReader br = new BufferedReader(new FileReader(userFound))) {
+
+                String line = br.readLine();
+                while (line != null) {
+                    atributes.add(line);
+                    line = br.readLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            users.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3))));
+        }
+
+        for (User userFoud : users) {
+            System.out.println(userFoud);
+            System.out.println();
         }
 
     }
