@@ -40,6 +40,9 @@ public class Layouts {
                 createQuestion(scan);
             }
 
+            if (choice == 4) {
+                deleteQuestion(scan);
+            }
 
         } catch (InputMismatchException e) {
             System.out.println("Dado de entrada inválido");
@@ -75,6 +78,15 @@ public class Layouts {
         String question = scanner.nextLine();
 
         QuestionsController.create(question);
+
+    }
+
+    public static void deleteQuestion(Scanner scanner) {
+
+        System.out.println("Digite a ser deletada do formulário: ");
+        String question = scanner.nextLine();
+
+        QuestionsController.delete(question);
 
     }
 
