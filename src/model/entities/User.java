@@ -46,6 +46,10 @@ public class User {
         this.height = height;
     }
 
+    public String convertAgeToString() {
+        return String.valueOf(age);
+    }
+
     @Override
     public String toString() {
         return name + "\n" +

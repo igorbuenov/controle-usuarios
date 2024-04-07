@@ -82,40 +82,26 @@ public class UsersController {
     }
 
     public static void show(String asLike) {
-
         File folder = new File(DATABASE);
         File[] files = folder.listFiles(File::isFile);
-        List<File> usersFileFound = new ArrayList<>();
+        List<User> usersDB = new ArrayList<>();
 
-        // Lendo todos os arquivos do banco de dados e encontrado os usuários que contenham o dado passado como parâmetro
         for (File file : files) {
-            try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-                String line = bufferedReader.readLine().toLowerCase();
+            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+                List<String> atributes = new ArrayList<>();
+                String line = br.readLine();
                 while (line != null) {
-                    if (line.contains(asLike.toLowerCase())) {
-                        usersFileFound.add(file);
-                        break;
-                    }
-                    line = bufferedReader.readLine();
+                    atributes.add(line);
+                    line = br.readLine();
                 }
+                usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3))));
+
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
 
-        // Lendo os dados salvos no arquivo e atribuindo a um novo objeto para ser exibido
-        List<User> users = new ArrayList<>();
-        for (File userFound : usersFileFound ) {
-            List<String> atributes = FilesHelpers.fileReader(String.valueOf(userFound));
-            users.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3))));
-        }
-
-        for (int i = 0; i < users.size(); i++) {
-            System.out.println("Usuário " + (i+1) + ":");
-            System.out.println(users.get(i));
-            System.out.println();
-        }
-
+        usersDB.stream().filter(user -> user.getName().toLowerCase().contains(asLike.toLowerCase()) || user.getEmail().toLowerCase().contains(asLike.toLowerCase()) || user.convertAgeToString().contains(asLike)).forEach(user -> System.out.println(user.toString() +"\n"));
     }
 
 
