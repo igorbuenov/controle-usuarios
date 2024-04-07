@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Layouts {
+
+    private Scanner scan = new Scanner(System.in).useLocale(Locale.US);
     public static final String QUESTIONS = "C:\\ws-intellij\\cadastro-usuarios\\src\\model\\files\\questions.txt";
     public static void index() {
 
@@ -69,11 +71,15 @@ public class Layouts {
         System.out.println();
 
         UsersController.create(answers);
+        System.out.println();
+        finishProgram();
     }
 
     public static void readUser() throws FileNotFoundException {
         System.out.println("..:: USUÁRIOS CADASTRADOS ::..");
         UsersController.read();
+        System.out.println();
+        finishProgram();
     }
 
     public static void showUser(Scanner scanner) {
@@ -85,6 +91,9 @@ public class Layouts {
         System.out.println("..:: USUÁRIOS ENCONTRADOS ::..");
         System.out.println();
         UsersController.show(data);
+        System.out.println();
+
+        finishProgram();
     }
 
     public static void createQuestion(Scanner scanner) {
@@ -93,6 +102,8 @@ public class Layouts {
         String question = scanner.nextLine();
 
         QuestionsController.create(question);
+        System.out.println();
+        finishProgram();
 
     }
 
@@ -100,11 +111,22 @@ public class Layouts {
 
         System.out.println("Digite a ser deletada do formulário: ");
         String question = scanner.nextLine();
-
         QuestionsController.delete(question);
+        System.out.println();
+        finishProgram();
 
     }
 
+    public static void finishProgram() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Deseja encerrar o programa (s/n)?");
+        String option = scan.nextLine();
+
+        if (option.equalsIgnoreCase("n")) {
+            index();
+        }
+    }
 
 
 }

@@ -41,9 +41,9 @@ public class UsersController {
         // Using file count to add numbering to a new user
 
         int usersInDB = countFiles(DATABASE);
-        String userFile = DATABASE + usersInDB + "-" + user.getName().toUpperCase().replaceAll("\\s+", "") + ".txt";
+        String userFile = DATABASE + usersInDB + "-" + user.getName().replace("ç", "c").toUpperCase().replaceAll("\\s+", "").replaceAll("[^\\p{ASCII}]", "") + ".txt";
         if (usersInDB < 10) {
-            userFile = DATABASE + "0" + usersInDB + "-" + user.getName().toUpperCase().replaceAll("\\s+", "") + ".txt";
+            userFile = DATABASE + "0" + usersInDB + "-" + user.getName().toUpperCase().replaceAll("\\s+", "").replaceAll("[^\\p{ASCII}]", "") + ".txt";
         }
 
         try(BufferedWriter br = new BufferedWriter(new FileWriter(userFile, true))) {

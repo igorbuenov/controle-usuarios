@@ -2,4 +2,3 @@ Qual seu nome completo?
 Qual seu email de contato?
 Qual sua idade?
 Qual sua altura?
-Qual é seu estado civíl?
