@@ -22,6 +22,7 @@ public class UsersController {
         Integer age = Integer.parseInt(data[2]);
         Double height = Double.parseDouble(data[3]);
 
+        //  VALIDATIONS RULES
         if (name.length() < 10) {
             throw new DomainException("O nome do usuário deve ter 10 ou mais caracteres!");
         }
@@ -37,8 +38,8 @@ public class UsersController {
         User user = new User(name, email, age, height);
         System.out.println(user);
 
-        // Utilizando a contagem de arquivos para adicionar a numeração em um novo usuário
-        // Using file count to add numbering to a new user
+        // Utilizando a contagem de arquivos para adicionar a numeração em um novo arquivo de usuário
+        // Using file count to add numbering to a new file user
 
         int usersInDB = countFiles(DATABASE);
         String userFile = DATABASE + usersInDB + "-" + user.getName().replace("ç", "c").toUpperCase().replaceAll("\\s+", "").replaceAll("[^\\p{ASCII}]", "") + ".txt";
@@ -101,7 +102,11 @@ public class UsersController {
             }
         }
 
-        usersDB.stream().filter(user -> user.getName().toLowerCase().contains(asLike.toLowerCase()) || user.getEmail().toLowerCase().contains(asLike.toLowerCase()) || user.convertAgeToString().contains(asLike)).forEach(user -> System.out.println(user.toString() +"\n"));
+        usersDB.stream()
+                .filter(user -> user.getName().toLowerCase().contains(asLike.toLowerCase()) ||
+                        user.getEmail().toLowerCase().contains(asLike.toLowerCase()) ||
+                        user.convertAgeToString().contains(asLike))
+                .forEach(user -> System.out.println(user.toString() +"\n"));
     }
 
 

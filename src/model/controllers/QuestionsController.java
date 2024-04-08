@@ -30,7 +30,6 @@ public class QuestionsController {
     }
 
     public static void delete(String question) {
-
         try {
             List<String> questions = FilesHelpers.fileReader(QUESTIONS);
             boolean deleteQuestion = questions.contains(question);
@@ -38,20 +37,16 @@ public class QuestionsController {
             if (!deleteQuestion) {
                throw new DomainException("A questão não existe no formulário");
             }
-
             questions.remove(question);
 
             try(BufferedWriter bw = new BufferedWriter(new FileWriter(QUESTIONS))) {
-
                 for (String quest : questions) {
                     bw.write(quest);
                     bw.newLine();
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             System.out.println("Pergunta deletada com sucesso!");
 
         } catch (DomainException e) {

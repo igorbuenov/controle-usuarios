@@ -10,15 +10,10 @@ import java.util.*;
 
 public class Layouts {
 
-    private Scanner scan = new Scanner(System.in).useLocale(Locale.US);
-    public static final String QUESTIONS = "C:\\ws-intellij\\cadastro-usuarios\\src\\model\\files\\questions.txt";
+    private static Scanner scan = new Scanner(System.in).useLocale(Locale.US);
     public static void index() {
-
-        Scanner scan = new Scanner(System.in).useLocale(Locale.US);
         System.out.println("..:: CONTROLE DE USUÁRIOS ::..");
-
         try {
-
             System.out.println("1 - Cadastrar usuário");
             System.out.println("2 - Listar todos os usuários cadastrados");
             System.out.println("3 - Cadastrar nova pergunta no formulário");
@@ -30,24 +25,25 @@ public class Layouts {
             scan.nextLine();
             System.out.println();
 
-            if (choice == 1) {
-                createUser(scan);
-            }
-
-            if (choice == 2) {
-                readUser();
-            }
-
-            if (choice == 3) {
-                createQuestion(scan);
-            }
-
-            if (choice == 4) {
-                deleteQuestion(scan);
-            }
-
-            if (choice == 5) {
-                showUser(scan);
+            switch (choice) {
+                case 1:
+                    createUser();
+                    break;
+                case 2:
+                    readUser();
+                    break;
+                case 3:
+                    createQuestion();
+                    break;
+                case 4:
+                    deleteQuestion();
+                    break;
+                case 5:
+                    showUser();
+                    break;
+                default:
+                    System.out.println("Escolha inválida!");
+                    finishProgram();
             }
 
         } catch (InputMismatchException e) {
@@ -58,15 +54,15 @@ public class Layouts {
 
     }
 
-    public static void createUser(Scanner scanner) throws DomainException {
+    public static void createUser() throws DomainException {
 
-        List<String> questions = FilesHelpers.fileReader(QUESTIONS);
+        List<String> questions = FilesHelpers.fileReader(QuestionsController.QUESTIONS);
         QuestionsController.read(questions);
         System.out.println();
 
         List<String> answers = new ArrayList<>();
         for (int i = 0; i < questions.size(); i++) {
-            answers.add(scanner.nextLine());
+            answers.add(scan.nextLine());
         }
         System.out.println();
 
@@ -82,10 +78,10 @@ public class Layouts {
         finishProgram();
     }
 
-    public static void showUser(Scanner scanner) {
+    public static void showUser() {
 
         System.out.print("Digite o dado a ser pesquisado: ");
-        String data = scanner.nextLine();
+        String data = scan.nextLine();
         System.out.println();
 
         System.out.println("..:: USUÁRIOS ENCONTRADOS ::..");
@@ -96,10 +92,10 @@ public class Layouts {
         finishProgram();
     }
 
-    public static void createQuestion(Scanner scanner) {
+    public static void createQuestion() {
 
         System.out.println("Digite a pergunta para ser salva no formulário: ");
-        String question = scanner.nextLine();
+        String question = scan.nextLine();
 
         QuestionsController.create(question);
         System.out.println();
@@ -107,10 +103,10 @@ public class Layouts {
 
     }
 
-    public static void deleteQuestion(Scanner scanner) {
+    public static void deleteQuestion() {
 
         System.out.println("Digite a ser deletada do formulário: ");
-        String question = scanner.nextLine();
+        String question = scan.nextLine();
         QuestionsController.delete(question);
         System.out.println();
         finishProgram();
@@ -118,9 +114,7 @@ public class Layouts {
     }
 
     public static void finishProgram() {
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("Deseja encerrar o programa (s/n)?");
+        System.out.print("Deseja encerrar o programa (s/n)? ");
         String option = scan.nextLine();
 
         if (option.equalsIgnoreCase("n")) {

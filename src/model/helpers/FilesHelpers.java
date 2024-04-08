@@ -9,7 +9,6 @@ public class FilesHelpers {
 
         List<String> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-
             String line = br.readLine();
             while (line != null) {
                 list.add(line);
