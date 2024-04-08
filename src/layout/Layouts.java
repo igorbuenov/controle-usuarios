@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Layouts {
 
-    private static Scanner scan = new Scanner(System.in).useLocale(Locale.US);
+    private static Scanner scan = new Scanner(System.in);
     public static void index() {
         System.out.println("..:: CONTROLE DE USUÁRIOS ::..");
         try {

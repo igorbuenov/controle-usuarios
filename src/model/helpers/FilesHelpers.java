@@ -1,6 +1,7 @@
 package model.helpers;
 
 import java.io.*;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,25 @@ public class FilesHelpers {
             }
         }
         return cont;
+    }
+
+    public static String regexStringFormatting(String string) {
+
+        String formatedString = Normalizer.normalize(string, Normalizer.Form.NFD)
+                .replaceAll("\\s+", "") // Remove spaces in String
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "") // Remover acentuação
+                .replaceAll("[áàâã]", "a")
+                .replaceAll("[éèê]", "e")
+                .replaceAll("[íìî]", "i")
+                .replaceAll("[óòôõ]", "o")
+                .replaceAll("[úùû]", "u")
+                .replaceAll("[ÁÀÂÃ]", "A")
+                .replaceAll("[ÉÈÊ]", "E")
+                .replaceAll("[ÍÌÎ]", "I")
+                .replaceAll("[ÓÒÔÕ]", "O")
+                .replaceAll("[ÚÙÛ]", "U");
+
+        return formatedString;
     }
 
 

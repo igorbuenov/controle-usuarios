@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static model.helpers.FilesHelpers.countFiles;
+import static model.helpers.FilesHelpers.regexStringFormatting;
 
 public class UsersController {
 
@@ -20,7 +21,9 @@ public class UsersController {
         String name = data[0];
         String email = data[1];
         Integer age = Integer.parseInt(data[2]);
-        Double height = Double.parseDouble(data[3]);
+        Double height = Double.parseDouble(data[3].replace(",","."));
+
+        System.out.println(height);
 
         //  VALIDATIONS RULES
         if (name.length() < 10) {
@@ -42,9 +45,9 @@ public class UsersController {
         // Using file count to add numbering to a new file user
 
         int usersInDB = countFiles(DATABASE);
-        String userFile = DATABASE + usersInDB + "-" + user.getName().replace("ç", "c").toUpperCase().replaceAll("\\s+", "").replaceAll("[^\\p{ASCII}]", "") + ".txt";
+        String userFile = DATABASE + usersInDB + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
         if (usersInDB < 10) {
-            userFile = DATABASE + "0" + usersInDB + "-" + user.getName().toUpperCase().replaceAll("\\s+", "").replaceAll("[^\\p{ASCII}]", "") + ".txt";
+            userFile = DATABASE + "0" + usersInDB + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
         }
 
         try(BufferedWriter br = new BufferedWriter(new FileWriter(userFile, true))) {
@@ -95,7 +98,7 @@ public class UsersController {
                     atributes.add(line);
                     line = br.readLine();
                 }
-                usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3))));
+                usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",","."))));
 
             } catch (IOException e) {
                 e.printStackTrace();
