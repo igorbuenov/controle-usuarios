@@ -29,16 +29,16 @@ public class QuestionsController {
         }
     }
 
-    public static void delete(String question) {
+    public static void delete(int numQuestion) {
         try {
             List<String> questions = FilesHelpers.fileReader(QUESTIONS);
-            boolean deleteQuestion = questions.contains(question);
 
-            if (!deleteQuestion) {
-               throw new DomainException("A questão não existe no formulário");
+            if (numQuestion <= 4) {
+               throw new DomainException("A questão é obrigatória e não pode ser deletada");
             }
-            questions.remove(question);
 
+            questions.remove(numQuestion-1);
+            
             try(BufferedWriter bw = new BufferedWriter(new FileWriter(QUESTIONS))) {
                 for (String quest : questions) {
                     bw.write(quest);

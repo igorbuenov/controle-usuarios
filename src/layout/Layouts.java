@@ -105,9 +105,15 @@ public class Layouts {
 
     public static void deleteQuestion() {
 
-        System.out.println("Digite a ser deletada do formulário: ");
-        String question = scan.nextLine();
-        QuestionsController.delete(question);
+        System.out.println("..:: PERGUNTAS CADASTRADAS ::..");
+        List<String> questions = FilesHelpers.fileReader(QuestionsController.QUESTIONS);
+        QuestionsController.read(questions);
+        System.out.println();
+
+        System.out.println("Digite o número da pergunta a ser deletada do formulário: ");
+        int numQuestion = scan.nextInt();
+        scan.nextLine();
+        QuestionsController.delete(numQuestion);
         System.out.println();
         finishProgram();
 
