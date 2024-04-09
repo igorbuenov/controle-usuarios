@@ -5,6 +5,7 @@ import model.exception.DomainException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static model.helpers.FilesHelpers.countFiles;
@@ -72,7 +73,7 @@ public class UsersController {
 
     }
 
-    public static void read() throws FileNotFoundException {
+    public static void read() {
 
         List<User> usersDB = usersDB();
         for (int i = 0; i < usersDB.size(); i++) {
@@ -92,6 +93,7 @@ public class UsersController {
                 .filter(user -> user.getName().toLowerCase().contains(asLike.toLowerCase()) ||
                         user.getEmail().toLowerCase().contains(asLike.toLowerCase()) ||
                         user.convertAgeToString().contains(asLike))
+                .sorted(Comparator.comparing(User::getName))
                 .forEach(user -> System.out.println(user.toString() +"\n"));
     }
 

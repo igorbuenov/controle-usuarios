@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.List;
 
 public class QuestionsController {
-
     public static final String QUESTIONS = "C:\\ws-intellij\\cadastro-usuarios\\src\\model\\files\\questions.txt";
 
     public static void create(String question) {
@@ -38,7 +37,7 @@ public class QuestionsController {
             }
 
             questions.remove(numQuestion-1);
-            
+
             try(BufferedWriter bw = new BufferedWriter(new FileWriter(QUESTIONS))) {
                 for (String quest : questions) {
                     bw.write(quest);
