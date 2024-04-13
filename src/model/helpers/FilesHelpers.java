@@ -23,19 +23,6 @@ public class FilesHelpers {
         return list;
     }
 
-    public static int countFiles(String path) {
-        File folder = new File(path);
-        File[] files = folder.listFiles(File::isFile);
-        int cont = 1;
-
-        for (File file : files) {
-            if (file != null) {
-                cont++;
-            }
-        }
-        return cont;
-    }
-
     public static String regexStringFormatting(String string) {
 
         String formatedString = Normalizer.normalize(string, Normalizer.Form.NFD)

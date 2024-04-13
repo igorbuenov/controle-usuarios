@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static model.helpers.FilesHelpers.countFiles;
 import static model.helpers.FilesHelpers.regexStringFormatting;
 
 public class UsersController {
@@ -18,9 +17,9 @@ public class UsersController {
 
         try {
             //  VALIDATIONS RULES
-            for (int i = 0; i < request.size(); i++) {
+            for (int i = 0; i < 4; i++) {
                 if (request.get(i) == "") {
-                    throw new DomainException("Preencha todos os campos");
+                    throw new DomainException("Campo obrigatório!");
                 }
             }
 
@@ -35,11 +34,8 @@ public class UsersController {
 
             if (!email.matches("^[^@]+@[^@]+$")) {
                 throw new DomainException("Email informado incorretamente");
-            } else {
-                List<User> usersDB = usersDB();
-                if (usersDB.stream().anyMatch(user -> user.getEmail().equals(email))) {
+            } else if (usersDB().stream().anyMatch(user -> user.getEmail().equals(email))) {
                     throw new DomainException("Email já cadastrado!");
-                }
             }
 
             if (age < 18) {
@@ -49,16 +45,13 @@ public class UsersController {
             User user = new User(name, email, age, height);
             System.out.println(user);
 
-            // Utilizando a contagem de arquivos para adicionar a numeração em um novo arquivo de usuário
-            // Using file count to add numbering to a new file user
+            String userNameFile = DATABASE + (usersDB().size() + 1) + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
 
-            int numUser = countFiles(DATABASE);
-            String userFile = DATABASE + numUser + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
-            if (numUser < 10) {
-                userFile = DATABASE + "0" + numUser + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
+            if (usersDB().size() < 10) {
+                userNameFile = DATABASE + "0" + (usersDB().size() + 1) + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
             }
 
-            try(BufferedWriter br = new BufferedWriter(new FileWriter(userFile, true))) {
+            try(BufferedWriter br = new BufferedWriter(new FileWriter(userNameFile))) {
                 for (String line : request) {
                     br.write(line);
                     br.newLine();
@@ -75,26 +68,32 @@ public class UsersController {
 
     public static void read() {
 
-        List<User> usersDB = usersDB();
-        for (int i = 0; i < usersDB.size(); i++) {
-            if (i < 9) {
-                System.out.println("0" + (i+1) + " - " + usersDB.get(i).getName());
-            } else {
-                System.out.println((i+1) + " - " + usersDB.get(i).getName());
+        if (!usersDB().isEmpty()) {
+            for (int i = 0; i < usersDB().size(); i++) {
+                if (i < 9) {
+                    System.out.println("0" + (i+1) + " - " + usersDB().get(i).getName());
+                } else {
+                    System.out.println((i+1) + " - " + usersDB().get(i).getName());
+                }
             }
+        } else {
+            System.out.print("Não há usuários cadastrados!");
         }
-
     }
 
     public static void show(String asLike) {
 
-        List<User> usersDB = usersDB();
-        usersDB.stream()
-                .filter(user -> user.getName().toLowerCase().contains(asLike.toLowerCase()) ||
-                        user.getEmail().toLowerCase().contains(asLike.toLowerCase()) ||
-                        user.convertAgeToString().contains(asLike))
-                .sorted(Comparator.comparing(User::getName))
-                .forEach(user -> System.out.println(user.toString() +"\n"));
+        if (!usersDB().isEmpty()) {
+            usersDB().stream()
+                    .filter(user -> user.getName().toLowerCase().contains(asLike.toLowerCase()) ||
+                            user.getEmail().toLowerCase().contains(asLike.toLowerCase()) ||
+                            user.convertAgeToString().contains(asLike))
+                    .sorted(Comparator.comparing(User::getName))
+                    .forEach(user -> System.out.println(user.toString()));
+        } else {
+            System.out.println("Nenhum usuário foi encontrado com o dado informado!");
+        }
+
     }
 
     public static List<User> usersDB() {
@@ -111,7 +110,18 @@ public class UsersController {
                     atributes.add(line);
                     line = br.readLine();
                 }
-                usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",","."))));
+
+                //Add to User additional informations
+                if (atributes.size() > 4) {
+                    List<String> additionalInformations = new ArrayList<>();
+                    for (int i = 4; i < atributes.size(); i++) {
+                        additionalInformations.add(atributes.get(i));
+                    }
+                    usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",",".")), additionalInformations));
+                } else {
+                    usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",","."))));
+                }
+
 
             } catch (IOException e) {
                 e.printStackTrace();

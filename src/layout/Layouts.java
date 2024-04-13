@@ -72,7 +72,9 @@ public class Layouts {
     }
 
     public static void readUser() throws FileNotFoundException {
+
         System.out.println("..:: USUÁRIOS CADASTRADOS ::..");
+        System.out.println();
         UsersController.read();
         System.out.println();
         finishProgram();
@@ -83,12 +85,9 @@ public class Layouts {
         System.out.print("Digite o dado a ser pesquisado: ");
         String data = scan.nextLine();
         System.out.println();
-
         System.out.println("..:: USUÁRIOS ENCONTRADOS ::..");
-        System.out.println();
         UsersController.show(data);
         System.out.println();
-
         finishProgram();
     }
 
