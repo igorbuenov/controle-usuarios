@@ -14,9 +14,9 @@ Afim de colocar em prática os conhecimento adquiridos nos cursos de Java básic
 O objetivo proposto é de criar uma aplicação onde se pode cadastrar um usuário utilizando como base um formulário de perguntas pré-definidas, armazená-los em arquivos com extensão .txt, com a seguinte regra, 1 arquivo para cada usuário salvo no seguinte formato: 01-IGORBUENOVENTURA.txt. 
 #### Exemplo:
 ##### Perguntas:
-- ![image](https://github.com/igorbuenov/controle-usuarios/assets/98808773/85015614-4dad-4b8b-a5eb-13aea3509fb5)
+![image](https://github.com/igorbuenov/controle-usuarios/assets/98808773/85015614-4dad-4b8b-a5eb-13aea3509fb5)
 ##### Armazenamento:
-- ![image](https://github.com/igorbuenov/controle-usuarios/assets/98808773/30fad396-a793-42df-9027-72981733e098)
+![image](https://github.com/igorbuenov/controle-usuarios/assets/98808773/30fad396-a793-42df-9027-72981733e098)
 
 
 
@@ -82,3 +82,8 @@ ainda pretendo utilizar o JavaFX para se ter uma interface visual mais agradáve
 Linkedin: https://www.linkedin.com/in/igorbuenov/
 
 e-mail: ib_ventura@hotmail.com
+
+### Referências para desenvolvimento:
+- Loiane Groner - Java básico: https://www.youtube.com/watch?v=LnORjqZUMIQ&list=PLGxZ4Rq3BOBq0KXHsp5J3PxyFaBIXVs3r
+- Nélio Alves - Java Completo: https://www.udemy.com/course/java-curso-completo/?couponCode=KEEPLEARNING
+- Lucas Carrilho (@devmagro): https://www.youtube.com/@devmagro
