@@ -69,12 +69,12 @@ A estrutura de pastas ficou da seguinte forma:
 
 #### Considerações sobre exceptions e helpers
 - Exceptions: utilizei exceptions personalizadas para atender as regras de negócios proposta pelo programa.
-- Helpers: a intenção foi de criar métodos auxiliares para utilizar em algumas partes que o programa precisasse/necessitasse como por exemplo para o salvamento de arquivos onde encontrei o problema de palavras acentuadas ou com caracteres que existem apenas no nosso idioma e fiz o método regexStringFormatting() na classe FilesHelpers, que remove a acentuação, troca as letras como "ç" e as subistitui por "c" e também remove os espaços. Para fins de teste o seguinte nome foi informado, Finalização Teste: 
+- Helpers: a intenção foi de criar métodos auxiliares para utilizar em algumas partes que o programa precisasse como por exemplo para o salvamento de arquivos onde encontrei o problema de palavras acentuadas ou com caracteres que existem apenas no nosso idioma e fiz o método regexStringFormatting() na classe FilesHelpers, que remove a acentuação, troca as letras como "ç" e as substitui por "c" e também remove os espaços. Para fins de testes o seguinte nome foi informado, Finalização Teste: 
   - Antes da implementação do método o arquivo era salvo da seguinte forma: 01-FINALIZAOTESTE.txt
   - Após a implementação, ficou da seguinte maneira: 01-FINALIZACAOTESTE.txt
  
 ### CONSIDERAÇÕES FINAIS:
-O programa ainda tem muita margem para crescimento e mudança. Estou ativamente estudando e vou buscar implentar novas soluções de desenvolvimento de acordo que vou conhecendo mais afundo a linguagem e ferramentas de desenvolvimento. Já está pronto para uso mas longe de ser finalizado,
+O programa ainda tem muita margem para crescimento e mudança. Estou ativamente estudando e vou buscar implentar novas soluções de desenvolvimento de acordo que vou conhecendo mais a fundo a linguagem e ferramentas de desenvolvimento. Já está pronto para uso mas longe de ser finalizado,
 ainda pretendo utilizar o JavaFX para se ter uma interface visual mais agradável podendo utilizar um pouco de conceitos UX, e também será feita um integração com banco e dados para que o programa se torne um utilitário mais próximo de um uso real. E é só o começo!
 
 ## Autor
