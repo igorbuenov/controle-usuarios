@@ -24,6 +24,8 @@ public class QuestionsController {
         for (int i = 0; i < questions.size(); i++) {
             if (i < 9) {
                 System.out.println("0" + (i+1) + " - " + questions.get(i));
+            } else {
+                System.out.println((i+1) + " - " + questions.get(i));
             }
         }
     }

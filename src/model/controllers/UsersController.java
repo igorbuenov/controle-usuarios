@@ -46,7 +46,6 @@ public class UsersController {
             System.out.println(user);
 
             String userNameFile = DATABASE + (usersDB().size() + 1) + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
-
             if (usersDB().size() < 10) {
                 userNameFile = DATABASE + "0" + (usersDB().size() + 1) + "-" + regexStringFormatting(user.getName()).toUpperCase() + ".txt";
             }
