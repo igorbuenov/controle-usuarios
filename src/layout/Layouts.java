@@ -10,6 +10,9 @@ import java.util.*;
 
 public class Layouts {
 
+    private static UsersController usersController = new UsersController();
+    private static QuestionsController questionsController = new QuestionsController();
+
     private static Scanner scan = new Scanner(System.in);
     public static void index() {
         System.out.println("..:: CONTROLE DE USUÁRIOS ::..");
@@ -57,7 +60,7 @@ public class Layouts {
     public static void createUser() throws DomainException {
 
         List<String> questions = FilesHelpers.fileReader(QuestionsController.QUESTIONS);
-        QuestionsController.read(questions);
+        questionsController.read(questions);
         System.out.println();
 
         List<String> answers = new ArrayList<>();
@@ -66,7 +69,7 @@ public class Layouts {
         }
         System.out.println();
 
-        UsersController.create(answers);
+        usersController.create(answers);
         System.out.println();
         finishProgram();
     }
@@ -75,7 +78,7 @@ public class Layouts {
 
         System.out.println("..:: USUÁRIOS CADASTRADOS ::..");
         System.out.println();
-        UsersController.read();
+        usersController.read();
         System.out.println();
         finishProgram();
     }
@@ -86,7 +89,7 @@ public class Layouts {
         String data = scan.nextLine();
         System.out.println();
         System.out.println("..:: USUÁRIOS ENCONTRADOS ::..");
-        UsersController.show(data);
+        usersController.show(data);
         System.out.println();
         finishProgram();
     }
@@ -96,7 +99,7 @@ public class Layouts {
         System.out.println("Digite a pergunta para ser salva no formulário: ");
         String question = scan.nextLine();
 
-        QuestionsController.create(question);
+        questionsController.create(question);
         System.out.println();
         finishProgram();
 
@@ -106,13 +109,13 @@ public class Layouts {
 
         System.out.println("..:: PERGUNTAS CADASTRADAS ::..");
         List<String> questions = FilesHelpers.fileReader(QuestionsController.QUESTIONS);
-        QuestionsController.read(questions);
+        questionsController.read(questions);
         System.out.println();
 
         System.out.println("Digite o número da pergunta a ser deletada do formulário: ");
         int numQuestion = scan.nextInt();
         scan.nextLine();
-        QuestionsController.delete(numQuestion);
+        questionsController.delete(numQuestion);
         System.out.println();
         finishProgram();
 

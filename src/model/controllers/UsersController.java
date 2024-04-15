@@ -2,6 +2,7 @@ package model.controllers;
 
 import model.entities.User;
 import model.exception.DomainException;
+import model.helpers.FilesHelpers;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import static model.helpers.FilesHelpers.regexStringFormatting;
 public class UsersController {
     private static final String DATABASE = "C:\\ws-intellij\\cadastro-usuarios\\src\\model\\database\\";
 
-    public static void create(List<String> request) throws DomainException {
+    public void create(List<String> request) throws DomainException {
 
         try {
             //  VALIDATIONS RULES
@@ -65,7 +66,7 @@ public class UsersController {
 
     }
 
-    public static void read() {
+    public void read() {
 
         if (!usersDB().isEmpty()) {
             for (int i = 0; i < usersDB().size(); i++) {
@@ -80,7 +81,7 @@ public class UsersController {
         }
     }
 
-    public static void show(String asLike) {
+    public void show(String asLike) {
 
         if (!usersDB().isEmpty()) {
             usersDB().stream()
@@ -95,35 +96,25 @@ public class UsersController {
 
     }
 
-    public static List<User> usersDB() {
+    public List<User> usersDB() {
 
         File folder = new File(DATABASE);
         File[] files = folder.listFiles(File::isFile);
         List<User> usersDB = new ArrayList<>();
 
         for (File file : files) {
-            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-                List<String> atributes = new ArrayList<>();
-                String line = br.readLine();
-                while (line != null) {
-                    atributes.add(line);
-                    line = br.readLine();
+
+            List<String> atributes = FilesHelpers.fileReader(file.getPath());
+
+            //Add to User additional informations
+            if (atributes.size() > 4) {
+                List<String> additionalInformations = new ArrayList<>();
+                for (int i = 4; i < atributes.size(); i++) {
+                    additionalInformations.add(atributes.get(i));
                 }
-
-                //Add to User additional informations
-                if (atributes.size() > 4) {
-                    List<String> additionalInformations = new ArrayList<>();
-                    for (int i = 4; i < atributes.size(); i++) {
-                        additionalInformations.add(atributes.get(i));
-                    }
-                    usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",",".")), additionalInformations));
-                } else {
-                    usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",","."))));
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",",".")), additionalInformations));
+            } else {
+                usersDB.add(new User(atributes.get(0), atributes.get(1), Integer.parseInt(atributes.get(2)), Double.parseDouble(atributes.get(3).replace(",","."))));
             }
         }
 
